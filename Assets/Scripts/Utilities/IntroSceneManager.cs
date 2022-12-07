@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
-using UnityEngine.SceneManagement;
 
 public class IntroSceneManager : MonoBehaviour {
 
@@ -23,7 +21,7 @@ public class IntroSceneManager : MonoBehaviour {
 
         if (!init)
         {
-            //it flickers the "Press Start" text
+            // it flickers the "Press Start" text
             timer += Time.deltaTime; 
             if (timer > 0.6f)
             {
@@ -31,7 +29,7 @@ public class IntroSceneManager : MonoBehaviour {
                 startText.SetActive(!startText.activeInHierarchy);
             }
 
-            //Where Start == space :P
+            // Where Start == space
             if (Input.GetKeyUp(KeyCode.Space) || Input.GetButtonUp("Jump"))
             {
                 init = true;
@@ -43,10 +41,10 @@ public class IntroSceneManager : MonoBehaviour {
         {
             if(!loadingLevel) //if not already loading the level
             {
-                //indicate the selected option
+                // indicate the selected option
                 menuOptions[activeElement].selected = true;
 
-                //change the selected option based on input
+                // change the selected option based on input
                 if(Input.GetKeyUp(KeyCode.UpArrow))
                 {
                     menuOptions[activeElement].selected = false;
@@ -90,26 +88,30 @@ public class IntroSceneManager : MonoBehaviour {
         
 	}
 
-    void HandleSelectedOption()
-    {
-         switch(activeElement)
-        {
-             case 0:
-                CharacterManager.GetInstance().numberOfUsers = 1;
-                break;
-             case 1:
-                CharacterManager.GetInstance().numberOfUsers = 2;
-                CharacterManager.GetInstance().players[1].playerType = PlayerBase.PlayerType.user; 
-                break;
-        }
-    }
-
     IEnumerator LoadLevel()
     {
-        HandleSelectedOption();
-        yield return new WaitForSeconds(0.6f);
-             
-        MySceneManager.GetInstance().RequestLevelLoad(SceneType.main,"select");
+        if (activeElement == 0)
+        {
+            CharacterManager.GetInstance().numberOfUsers = 2;
+            CharacterManager.GetInstance().players[1].playerType = PlayerBase.PlayerType.user;
+        }
 
+        yield return new WaitForSeconds(0.6f);
+
+        string sceneToLoad = "";
+
+        switch (activeElement)
+        {
+            case 0:
+                sceneToLoad = "select";
+                break;
+            case 1:
+                sceneToLoad = "settings";
+                break;
+            default:
+                break;
+        }
+
+        MySceneManager.GetInstance().RequestLevelLoad(SceneType.main, sceneToLoad);
     }
 }
