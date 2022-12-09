@@ -104,14 +104,16 @@ public class IntroSceneManager : MonoBehaviour {
         {
             case 0:
                 sceneToLoad = "select";
+                MySceneManager.GetInstance().RequestLevelLoad(SceneType.main, sceneToLoad);
                 break;
             case 1:
                 sceneToLoad = "settings";
+                MySceneManager.GetInstance().RequestLevelLoad(SceneType.prog, sceneToLoad);
                 break;
             default:
                 break;
         }
 
-        MySceneManager.GetInstance().RequestLevelLoad(SceneType.main, sceneToLoad);
+        
     }
 }
