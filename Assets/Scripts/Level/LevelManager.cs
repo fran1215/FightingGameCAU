@@ -2,9 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class LevelManager : MonoBehaviour {
-    
+    [SerializeField] private Sprite[] sprites;
+    [SerializeField] private Material floor_mat;
+
     WaitForSeconds oneSec;//we will be using this a lot so we don't want to create a new one everytime, saves a few bytes this
     public Transform[] spawnPositions;// the positions characters will spawn on
 
@@ -22,7 +25,9 @@ public class LevelManager : MonoBehaviour {
     int currentTimer;
     float internalTimer;
 
-	void Start () {
+    
+
+    void Start () {
         //get the references from the singletons
         charM = CharacterManager.GetInstance();
         levelUI = LevelUI.GetInstance();
@@ -33,6 +38,17 @@ public class LevelManager : MonoBehaviour {
 
         levelUI.AnnouncerTextLine1.gameObject.SetActive(false);
         levelUI.AnnouncerTextLine2.gameObject.SetActive(false);
+
+        Sprite sprite;
+
+        foreach (var s in sprites)
+        {
+            if (s.name == "CP_FLOOR")
+            {
+                sprite = s;
+                floor_mat.mainTexture = sprite.texture;
+            }
+        }
 
         StartCoroutine("StartGame");
        
