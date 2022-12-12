@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 
 public class SelectScreenManager : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class SelectScreenManager : MonoBehaviour
    
     bool loadLevel; // if we are loading the level  
     public bool bothPlayersSelected;
+
+    public TMP_Text fighterName1;
+    public TMP_Text fighterName2;
 
     CharacterManager charManager;
 
@@ -56,7 +60,7 @@ public class SelectScreenManager : MonoBehaviour
                         plInterfaces[i].playerBase = charManager.players[i];
 
                         HandleSelectScreenInput(plInterfaces[i], charManager.players[i].inputId);
-                        HandleCharacterPreview(plInterfaces[i]);
+                        HandleCharacterPreview(plInterfaces[i], i);
                     }
                 }
                 else
@@ -159,7 +163,7 @@ public class SelectScreenManager : MonoBehaviour
 
     }
 
-    void HandleCharacterPreview(PlayerInterfaces pl)
+    void HandleCharacterPreview(PlayerInterfaces pl, int selector)
     {
         if (pl.previewCharacterID != pl.activeCharacterID)
         {
@@ -177,6 +181,17 @@ public class SelectScreenManager : MonoBehaviour
             pl.createdCharacter = go;
             pl.previewCharacterID = pl.activeCharacterID;
 
+            if(selector == 0)
+            {
+                fighterName1.text = "Oomika Menko " + (pl.previewCharacterID + 1);
+            } else if(selector == 1)
+            {
+                fighterName2.text = "Oomika Menko " + (pl.previewCharacterID + 1);
+
+            }
+                
+
+            
             if (!string.Equals(pl.playerBase.playerId, charManager.players[0].playerId))
             {
                 pl.createdCharacter.GetComponent<StateManager>().lookRight = false;
