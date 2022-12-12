@@ -82,6 +82,8 @@
     <Compile Include="Assets\Scripts\MainMenu\PotraitInfo.cs" />
     <Compile Include="Assets\Scripts\Players\HandleMovement.cs" />
     <Compile Include="Assets\Scripts\Utilities\FollowTransform.cs" />
+    <Compile Include="Assets\Scripts\Utilities\MusicClass.cs" />
+    <Compile Include="Assets\SetVolume.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

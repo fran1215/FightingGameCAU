@@ -86,8 +86,15 @@ public class CharacterManager : MonoBehaviour {
 
     void Awake()
     {
-        instance = this;
-        DontDestroyOnLoad(this.gameObject);
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        } else
+        {
+            Destroy(this);
+        }
+        
     }
 
 }
