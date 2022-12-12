@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 
@@ -9,11 +10,28 @@ public class SettingsSceneManager : MonoBehaviour
     public int activeElement;
     public GameObject menuObj;
     public ButtonRef[] menuOptions;
+    public Button applyButton;
+    public Slider volumeSlider;
 
     // Start is called before the first frame update
     void Start()
     {
         menuObj.SetActive(true);
+
+        applyButton.onClick.AddListener(applyClick);
+        volumeSlider.value = PlayerPrefs.GetFloat("volume");
+        AudioListener.volume = PlayerPrefs.GetFloat("volume");
+    }
+
+    void applyClick()
+    {
+        var newVolume = volumeSlider.value;
+        PlayerPrefs.SetFloat("volume", newVolume);
+        AudioListener.volume = PlayerPrefs.GetFloat("volume");
+
+        PlayerPrefs.SetInt("volumeChanged", 1);
+
+        MySceneManager.GetInstance().RequestLevelLoad(SceneType.main, "intro");
     }
 
     // Update is called once per frame

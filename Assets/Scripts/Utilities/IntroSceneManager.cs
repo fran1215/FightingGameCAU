@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class IntroSceneManager : MonoBehaviour {
 
@@ -15,6 +16,14 @@ public class IntroSceneManager : MonoBehaviour {
     void Start()
     {
         menuObj.SetActive(false);
+
+        bool changed = PlayerPrefs.GetInt("volumeChanged") == 1 ? true : false;
+        if (!changed)
+        {
+            PlayerPrefs.SetFloat("volume", 100);
+        }
+        
+        AudioListener.volume = PlayerPrefs.GetFloat("volume");
     }
 
 	void Update () {

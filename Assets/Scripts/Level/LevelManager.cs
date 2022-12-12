@@ -39,6 +39,9 @@ public class LevelManager : MonoBehaviour {
         levelUI.AnnouncerTextLine1.gameObject.SetActive(false);
         levelUI.AnnouncerTextLine2.gameObject.SetActive(false);
 
+        // Set volume
+        AudioListener.volume = PlayerPrefs.GetFloat("volume");
+
         Sprite sprite;
 
         foreach (var s in sprites)
